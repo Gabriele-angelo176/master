@@ -1,0 +1,79 @@
+.logo{
+    width: 150px;
+
+}
+  .container{
+    text-align: center;
+  }
+    
+
+  .slogan-container{
+    background-color:#fdfbf1;
+    padding: 3px;
+    border-top: 2px solid #fbe4ae;
+    text-align: center ;
+    margin-top: 15px;
+  }
+
+  .slogan{
+    color: #427976;
+  }
+
+.slogan-bold{
+    font-weight: bold;
+}
+
+.content{
+    width: 45%;
+    margin: 0 auto;
+}
+
+.content h1{
+    text-align: center;
+}
+
+.main-image{
+    width: 100%;
+    border-radius: 8px;
+    height: 400px;
+    object-fit: cover;
+}
+
+figure{
+    margin: 0;
+    padding: 0;
+}
+
+figcaption{
+    text-align: center;
+    color: #bcbcbc;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.featured-container{
+    border-left:2px solid #fbe4ae;
+padding: 2px 20px;
+margin-top: 20px;
+}
+
+.featured-title{
+    margin: 0;
+    border: 0;
+    color: #b5472a;
+    text-transform: uppercase;
+}
+
+.featured-link{
+    color: #357778;
+
+}
+
+
+.separator{
+    border-top: 2px solid #bdf2f1;
+}
+
+.final{
+    font-weight: 100;
+}
