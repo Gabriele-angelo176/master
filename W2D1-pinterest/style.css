@@ -1,0 +1,71 @@
+.card{
+    width: 350px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 30px;
+    
+}
+
+.card img{
+    width: 100%;
+}
+
+.save-button{
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    background-color: red;
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    transform: translateY(-70px);
+     transition: transform .4s ease-in-out;
+}
+
+
+.icona-freccia{
+    transform: rotate(-45deg);
+
+}
+
+.btn{
+    background-color: rgb(233, 228, 228);
+border-radius: 30px;
+border: none;
+padding: 15px;
+display: flex;
+align-items: center;
+}
+
+.btn-container{
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    transform:translateY(100px) ;
+    transition: transform .4s ease-in-out;
+}
+
+.overlay{
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+     transition: transform .4s ease-in-out;
+}
+
+
+.card:hover .save-button{
+    transform: translateY(0);
+}
+
+.card:hover .btn-container{
+    transform: translateY(0);
+}
+
+.card:hover .overlay{
+    opacity: 1;
+
+}
