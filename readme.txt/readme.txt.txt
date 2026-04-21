@@ -1,0 +1,4 @@
+l argoritmo: e come quando hai davanti a te un cubo di rubic disordinato e pensi a una strategia per far si di metterle in ordine per vari colori
+la variabile:sono praticamente tutti i vari pezzetini che soo dentro il cubo  di rubic che ti permettono se combinati ovviamente di arrivare alla soluziome e possono variare 
+undefined:significa indefinito e si usa se vedi il cubo di rubic davanti cioe solo front sai cosa c'è nel retro ma non sai cosa c'è dentro e indefinito
+null:succede quando lo lasci vuoto ad esempio il  cubi d rubic dalla parte bianca la lasci li e vai avanti che poi praticamente dopo cambiera alla fine 
