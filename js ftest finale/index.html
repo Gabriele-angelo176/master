@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="button" value="search" onclick="search()" / id="inputlocation">
+    <input type="button" value="search" onclick="search()" / id="inputtitle">
+    <div id="container">
+
+    </div>
+    <script src="scaricabile.js"></script>
+    <script>
+
+
+        let result = []
+        const idinputlocation = document.getElementById('inputlocation').value;
+        const idinputtitle = document.getElementById('inputtitle').value;
+        function search(idinputlocation, idinputtitle) {
+
+            for (let index = 0; index < jobs.length; index++) {
+                let numerojob = index + 1
+                let title = jobs[index].title;
+                let location = jobs[index].location;
+                result.push("job" + numerojob, title, location);
+                const dev = result.includes("dev")
+                const us = result.includes("US")
+                console.log(dev, us)
+                console.log(result);
+                console.log(title.toLowerCase())
+            }
+            const body = document.getElementById("container")
+            body.innerHTML = `<ul><li>${result}</li></ul>`
+            body.appendChild(newtable)
+        }
+
+
+    </script>
+</body>
+
+</html>
