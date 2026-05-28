@@ -1,0 +1,49 @@
+h1 {
+    color: rgb(73, 117, 199);
+}
+.nav span {
+    color: cornflowerblue;
+    font-weight: 500;
+    cursor: pointer;
+}
+.nav span:hover {
+    text-decoration:underline ;
+}
+.nav span:nth-child(even){
+    color: red;
+}
+
+div.jumbotron  p > a {
+   color:red;
+}
+
+div.blog-main div:first-of-type {
+    border: 1px solid red;
+    padding: 20px;
+}
+div.blog-post > hr {
+    border-color:red;
+}
+.blog-sidebar div:nth-child(2) li > a{
+    color: red;
+}
+
+div.blog-post:nth-of-type(2) p:first-of-type > a {
+    color: red;
+}
+div.blog-post:nth-of-type(3) li:last-of-type {
+    color: cornflowerblue;
+}
+footer + a {
+    color: red;
+}
+nav.blog-pagination > a:last-of-type {
+    color: red;
+}
+
+footer p > a:last-of-type {
+    color: red;
+}
+div.p-4:nth-of-type(3) li:nth-of-type(2) a {
+ color: red;
+}
