@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="gestione-nav">
+            <ul class="nav">
+                <img src="./logo.svg" alt="">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#Browse">Browse</a>
+                </li>
+                <ion-icon name="chevron-down-outline"></ion-icon>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Landings">Landings</a>
+                </li>
+                <ion-icon name="chevron-down-outline"></ion-icon>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Pages">Pages</a>
+                </li>
+                <ion-icon name="chevron-down-outline"></ion-icon>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Accounts</a>
+                </li>
+                <ion-icon name="chevron-down-outline"></ion-icon>
+            </ul>
+        </div>
+        <div class="gestione-profilo">
+            <div id="notifica">
+                <span id="pallino-blu"></span>
+                <img src="./notifications-outline.svg" alt="">
+            </div>
+          <div class="profile-container">
+  <button id="profileBtn" class="profile-btn">
+    <span id="pallino-verde"></span>
+    <img src="./avatar-1.jpg" alt="Avatar" class="avatar">
+   
+  </button>
+
+  <div id="profileDropdown" class="profile-dropdown">
+    <div id="accaunt-foto">
+    <img src="./avatar-1.jpg" alt="">
+     <span id="pallino-verde2"></span> 
+    <div id="paragrafo">
+        <p>Annette black</p>
+        <p style="color: gainsboro;">annette@geeksui.com</p>
+    </div>
+    </div>
+    <hr>
+    <a href="#account">profile</a>
+    <a href="#i-miei-corsi">Subscription</a>
+    <a href="#preferiti">Setting</a>
+    <hr>
+    <a href="#logout" class="logout-link">Sing Out</a>
+  </div>
+</div>
+        </div>
+    </header>
+
+
+
+    
+    <main>
+ 
+
+        <div class="parte-azzura">
+            <div class="titolo-testo">
+                <h1>Welcome Web Students!</h1>
+                <p>Hand-piicked instructor and expertlycrafted <br> courses designed for the modern students and <br>
+                    entrepreneur.</p>
+                <div>
+                    <button id="button1">Browse courses</button>
+                    <button id="button2">Are yuo instructro?</button>
+                </div>
+            </div>
+            <img src="./hero-img.png" alt="">
+        </div>
+        <div class="parte-bianca">
+            <div class="immagini">
+                <img src="./videocam-outline.svg" alt="">
+            </div>
+            <p> <strong>30,000 online courses</strong> <br>Enjoy a variety of fresh topics</p>
+            <div class="immagini">
+                <img src="./people-outline.svg" alt="">
+            </div>
+            <p><strong>Expert Instruction</strong> <br>find the right innstructor for yuo</p>
+            <div class="immagini">
+                <img src="./time-outline.svg" alt="">
+            </div>
+            <p><strong>Lifetime access</strong> <br>
+                Learn on yuo schedule</p>
+        </div>
+<div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item">
+           <div class="card-sfondo">
+            <h1>Recommeded to yuo</h1>
+            <div class="contenitore-sfondo">
+                <div class="carosello">
+                <div id="freccia"><button>
+                        <</button>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="./course-graphql.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">GrapgQL:introduction to <br> graphQL for beginners</h5>
+                        <div id="simboli">
+                            <p class="card-text"><ion-icon name="time-outline"></ion-icon> 2h 40m
+                                <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> Advance
+                            </p>
+
+                            <div class="stelle">
+                                <p>
+                                    <ion-icon name="star-sharp"></ion-icon>
+                                    <ion-icon name="star-sharp"></ion-icon>
+                                    <ion-icon name="star-half-sharp"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    2.5
+                                </p>
+                                <span>(1,500)</span>
+                            </div>
+
+                            <div id="euro">
+                                $500 <s>$600</s>
+                            </div>
+                            <hr>
+                            <div class="Brooklyn-Simmons">
+                                <div>
+                                    <img src="./avatar-5.jpg" alt="">
+                                    <p>Brooklyn Simmons </p>
+                                </div>
+                                <ion-icon name="bookmark-outline"></ion-icon>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-javascript.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">A complete Beginner's <br> Guide to javascript</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 4h 10m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> Advance
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-half-sharp"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        3.5
+                                    </p>
+                                    <span>(7,500)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $700 <s>$850</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-1.jpg" alt="">
+                                        <p>Jenny wilson </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-node.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Beginneg node.js,Express<br> & mongoDB development</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 2h 00m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> intermediate
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        4.0
+                                    </p>
+                                    <span>(15,700)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $800 <s>$950</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-3.jpg" alt="">
+                                        <p>Sina Ray </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-laravel.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lavarel: The ultimate <br> Beginner's Guide to Learn</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 1h 00m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> begginer
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-half-sharp"></ion-icon>
+
+                                        4.5
+                                    </p>
+                                    <span>(2,500)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $170 <s>$220</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-7.jpg" alt="">
+                                        <p>Sobo Rikhan </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="freccia">
+                    <button>></button>
+                </div>
+
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card-sfondo">
+            <h1>Most Popular</h1>
+            <div class="contenitore-sfondo">
+                <div id="freccia"><button>
+                        <</button>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="./course-html.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">HTML full course-build a <br> Website Tutorial</h5>
+                        <div id="simboli">
+                            <p class="card-text"><ion-icon name="time-outline"></ion-icon> 3h 16m
+                                <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> begginer
+                            </p>
+
+                            <div class="stelle">
+                                <p>
+                                    <ion-icon name="star-sharp"></ion-icon>
+                                    <ion-icon name="star-sharp"></ion-icon>
+                                    <ion-icon name="star-sharp"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    3.0
+                                </p>
+                                <span>(1,600)</span>
+                            </div>
+
+                            <div id="euro">
+                                $550 <s>$700</s>
+                            </div>
+                            <hr>
+                            <div class="Brooklyn-Simmons">
+                                <div>
+                                    <img src="./avatar-8.jpg" alt="">
+                                    <p>miston wilson </p>
+                                </div>
+                                <ion-icon name="bookmark-outline"></ion-icon>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-javascript.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">A complete Beginner's <br> Guide to javascript</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 4h 10m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> Advance
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        3.5
+                                    </p>
+                                    <span>(7,500)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $700 <s>$850</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-1.jpg" alt="">
+                                        <p>Jenny wilson </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-node.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Beginneg node.js,Express<br> & mongoDB development</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 2h 00m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> intermediate
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        4.0
+                                    </p>
+                                    <span>(15,700)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $800 <s>$950</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-3.jpg" alt="">
+                                        <p>Sina Ray </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-react.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">How to easily craete a <br> website with React</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 3h 55m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> Advance
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-half-sharp"></ion-icon>
+
+                                        4.5
+                                    </p>
+                                    <span>(1,500)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $600 <s>$750</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-2.jpg" alt="">
+                                        <p>april Noms </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="freccia">
+                    <button>></button>
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+        <div class="carousel-item active">
+             <div class="card-sfondo">
+            <h1>Treding</h1>
+            <div class="contenitore-sfondo">
+                <div id="freccia"><button>
+                        <</button>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="./course-gatsby.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Revolution how you build<br> the web</h5>
+                        <div id="simboli">
+                            <p class="card-text"><ion-icon name="time-outline"></ion-icon> 1h 46m
+                                <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> intermedie
+                            </p>
+
+                            <div class="stelle">
+                                <p>
+                                    <ion-icon name="star-sharp"></ion-icon>
+                                    <ion-icon name="star-sharp"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    2.0
+                                </p>
+                                <span>(16,500)</span>
+                            </div>
+
+                            <div id="euro">
+                                $800 <s>$850</s>
+                            </div>
+                            <hr>
+                            <div class="Brooklyn-Simmons">
+                                <div>
+                                    <img src="./avatar-6.jpg" alt="">
+                                    <p>Jenny Wilson </p>
+                                </div>
+                                <ion-icon name="bookmark-outline"></ion-icon>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-html.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">HTML full course-build a <br> Website Tutorial</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 3h 16m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> Beginner
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        3.0
+                                    </p>
+                                    <span>(1,600)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $550 <s>$700</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-8.jpg" alt="">
+                                        <p>Miston wilson </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-node.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Beginneg node.js,Express<br> & mongoDB development</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 2h 00m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> intermediate
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        4.0
+                                    </p>
+                                    <span>(15,700)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $800 <s>$950</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-3.jpg" alt="">
+                                        <p>Sina Ray </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sfondo">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./course-laravel.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lavarel: The ultimate <br> Beginner's Guide to Learn</h5>
+                            <div id="simboli">
+                                <p class="card-text"><ion-icon name="time-outline"></ion-icon> 1h 00m
+                                    <ion-icon name="cellular-outline" style="color: blue;"></ion-icon> begginer
+                                </p>
+
+                                <div class="stelle">
+                                    <p>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-sharp"></ion-icon>
+                                        <ion-icon name="star-half-sharp"></ion-icon>
+
+                                        4.5
+                                    </p>
+                                    <span>(2,500)</span>
+                                </div>
+
+                                <div id="euro">
+                                    $170 <s>$220</s>
+                                </div>
+                                <hr>
+                                <div class="Brooklyn-Simmons">
+                                    <div>
+                                        <img src="./avatar-7.jpg" alt="">
+                                        <p>Sobo Rikhan </p>
+                                    </div>
+                                    <ion-icon name="bookmark-outline"></ion-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="freccia">
+                    <button>></button>
+                </div>
+
+            </div>
+        </div>
+        </div>
+       
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+
+        <!-- prima parte -->
+       
+
+
+
+        <!-- seconda parte -->
+      
+
+        <!-- terza parte -->
+     
+    </main>
+
+
+    <!-- carosello -->
+   
+    <footer>
+        <div id="copy">
+        <p>&copy;</p>
+        <p>2022 Geeks. All Rights Reversed</p>
+        </div>
+        <div id="privacy">
+            <p>privacy </p>
+           <p>terms</p>
+           <p>feedback</p>
+           <p>support</p>
+        </div>
+    </footer>
+
+
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+
+</html>

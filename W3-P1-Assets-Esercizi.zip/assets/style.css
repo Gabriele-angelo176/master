@@ -1,0 +1,367 @@
+
+
+ @font-face {
+        font-family: 'fontuno';
+        src: url("./fa-regular-400.woff2") format('woff2');
+    }
+body{
+    font-family: 'fontuno';
+}
+
+.carosello{
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+
+}
+
+
+/* Contenitore relativo per fare da punto di riferimento al menu */
+.profile-container {
+  position: relative;
+  display: inline-block;
+  
+}
+
+/* Stile del bottone */
+.profile-btn {
+  background-color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+ 
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* Stile del menu a comparsa */
+.profile-dropdown {
+  display: none; /* Nascosto di default */
+  position: absolute;
+  right: 0; /* Allineato a destra del bottone */
+  top: 110%; /* Spostato leggermente sotto il bottone */
+  background-color: white;
+  min-width: 350px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 100; /* Fa in modo che stia SOPRA gli altri elementi, come il carosello */
+  
+}
+
+#paragrafo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+}
+
+#paragrafo p{
+    margin: 0px;
+}
+#accaunt-foto{
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    padding-left: 30px;
+    
+}
+
+
+/* Stile dei link dentro il menu */
+.profile-dropdown a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-family: sans-serif;
+}
+
+.profile-dropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+.profile-dropdown hr {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid black;
+}
+
+/* Classe di utilità che JavaScript aggiungerà/rimuoverà per mostrare il menu */
+.profile-dropdown.show {
+  display: block;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+
+}
+
+.nav img {
+    padding-left: 20px;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.nav-item a {
+    color: black;
+    padding-left: 20px;
+
+}
+
+.parte-azzura {
+    background-color: rgb(81, 81, 248);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 400px;
+
+}
+
+.titolo-testo {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+
+.titolo-testo h1 {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.titolo-testo p {
+    color: deepskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parte-azzura img {
+    height: 400px;
+
+}
+
+.gestione-profilo {
+    padding-right: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+#notifica {
+    background-color: gainsboro;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+#accaunt-foto img{
+    position: relative;
+}
+#pallino-blu{
+    height: 10px;
+    width: 10px;
+    background-color: blue;
+    position: absolute;
+    border-radius: 50%;
+    top: 5px;
+    right: 5px;
+}
+#pallino-verde{
+    height: 10px;
+    width: 10px;
+    background-color: rgb(3, 218, 3);
+    position: absolute;
+    border-radius: 50%;
+    bottom: 8px;
+    right: 13px;
+}
+#pallino-verde2{
+     height: 10px;
+    width: 10px;
+    background-color: rgb(3, 218, 3);
+    position: absolute;
+    border-radius: 50%;
+    top: 50px;
+    left: 70px;
+   
+}
+
+#notifica img {
+    height: 20px;
+    width: 20px;
+}
+
+.gestione-profilo img {
+    border-radius: 250px;
+    height: 50px;
+
+}
+
+#button1 {
+    background-color: rgb(156, 154, 154);
+    height: 50px;
+}
+
+#button2 {
+    height: 50px;
+}
+
+.parte-bianca img {
+    height: 20px;
+    width: 20px;
+
+
+
+}
+
+.immagini {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: wheat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.parte-bianca {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 15px;
+
+}
+
+
+
+
+#simboli p {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.stelle p {
+    color: orange;
+}
+
+.stelle {
+    display: flex;
+    gap: 10px;
+}
+
+#euro s {
+    color: rgb(167, 166, 166);
+}
+
+.Brooklyn-Simmons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Brooklyn-Simmons div {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.Brooklyn-Simmons img {
+    height: 40px;
+    border-radius: 20px;
+}
+
+.Brooklyn-Simmons p {
+    margin: 0px;
+}
+
+.card-sfondo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 130px;
+    background-color: gainsboro;
+    box-shadow: 5px 8px 15px 5px gainsboro
+}
+
+.card-sfondo h1 {
+    display: flex;
+    padding-left: 70px;
+    height: 80px;
+}
+
+.contenitore-sfondo {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+#freccia button {
+    border-radius: 50%;
+    background-color: white;
+    border: white;
+    color: gainsboro;
+    height: 50px;
+    width: 50px;
+
+}
+
+#freccia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+footer{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 150px;
+    background-color: gainsboro;
+    padding-left: 210px;
+    padding-right: 210px;
+}
+
+#copy{
+    display: flex;
+   
+}
+#privacy{
+    display: flex;
+    gap: 20px;
+   
+}
