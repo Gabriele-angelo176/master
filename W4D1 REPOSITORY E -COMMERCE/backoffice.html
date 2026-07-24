@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backoffice Prodotti</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="bg-light py-3 mb-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="h4 mb-0">Backoffice Prodotti</h1>
+                <p class="mb-0 text-muted">Elenco articoli e form per aggiungere un nuovo prodotto</p>
+            </div>
+            <div>
+                <a href="index.html" class="btn btn-outline-secondary me-2">Torna al catalogo</a>
+                <a href="detail.html" class="btn btn-outline-primary">Pagina dettaglio</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="backoffice-alert" class="mb-3"></div>
+        <div class="row">
+            <div class="col-12 col-xl-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Aggiungi un articolo</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="product-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nome prodotto</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Descrizione</label>
+                                <textarea class="form-control" id="description" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="brand" class="form-label">Brand</label>
+                                <input type="text" class="form-control" id="brand">
+                            </div>
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Categoria</label>
+                                <input type="text" class="form-control" id="category">
+                            </div>
+                            <div class="mb-3">
+                                <label for="imageUrl" class="form-label">URL immagine</label>
+                                <input type="url" class="form-control" id="imageUrl" placeholder="https://...">
+                            </div>
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Prezzo</label>
+                                <input type="number" class="form-control" id="price" step="0.01" required>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <button id="product-submit" type="submit" class="btn btn-success">Aggiungi articolo</button>
+                                <div id="backoffice-spinner" class="spinner-border text-primary ms-3 d-none" role="status" style="width:1.5rem;height:1.5rem;">
+                                    <span class="visually-hidden">Caricamento...</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-6">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Elenco articoli</h2>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="backoffice-list" class="list-group list-group-flush"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="backoffice.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
