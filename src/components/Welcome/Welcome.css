@@ -1,0 +1,21 @@
+.welcome {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+
+.welcome__alert {
+  display: inline-block;
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fbbf24;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.welcome__title {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #111827;
+}
