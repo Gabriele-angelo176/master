@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import '../AllTheBooks/AllTheBooks.css'
+import CommentArea from '../CommentArea/CommentArea'
 
 const SingleBook = ({ book }) => {
 	const [selected, setSelected] = useState(false)
@@ -12,6 +13,7 @@ const SingleBook = ({ book }) => {
 				className={`book-card__image ${selected ? 'book-card__image--selected' : ''}`}
 				onClick={() => setSelected((currentSelected) => !currentSelected)}
 			/>
+			{selected && <CommentArea bookId={book.asin} />}
 		</article>
 	)
 }
