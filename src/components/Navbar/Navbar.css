@@ -1,0 +1,27 @@
+.navbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-right: 1rem;
+}
+
+.navbar-search {
+  min-width: 220px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-controls {
+    width: 100%;
+    margin: 0.75rem 0;
+    justify-content: space-between;
+  }
+
+  .navbar-search {
+    flex: 1;
+    min-width: 0;
+  }
+}
