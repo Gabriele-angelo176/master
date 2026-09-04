@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-const AddComment = ({ onAdd }) => {
+const AddComment = ({ elementId, onAdd }) => {
   const [comment, setComment] = useState('')
   const [rate, setRate] = useState('5')
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (!comment.trim()) return
-    await onAdd(comment.trim(), Number(rate))
+    await onAdd(comment.trim(), rate, elementId)
     setComment('')
     setRate('5')
   }

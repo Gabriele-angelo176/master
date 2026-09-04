@@ -29,6 +29,26 @@
   margin: 0 auto;
 }
 
+.all-books__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.all-books__layout .all-books__grid {
+  width: 100%;
+}
+
+.all-books__layout .comment-area {
+  position: sticky;
+  top: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
 .book-card {
   background: #f9fafb;
   border-radius: 12px;
@@ -58,4 +78,14 @@
 
 .book-card__image--selected {
   border-color: red;
+}
+
+@media (max-width: 800px) {
+  .all-books__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .all-books__layout .comment-area {
+    position: static;
+  }
 }

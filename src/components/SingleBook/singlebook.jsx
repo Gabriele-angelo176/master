@@ -1,19 +1,16 @@
-import { useState } from 'react'
 import '../AllTheBooks/AllTheBooks.css'
-import CommentArea from '../CommentArea/CommentArea'
 
-const SingleBook = ({ book }) => {
-	const [selected, setSelected] = useState(false)
+const SingleBook = ({ book, selected, onSelect }) => {
+	const isSelected = selected === book.asin
 
 	return (
 		<article className="book-card">
 			<img
 				src={book.img}
 				alt={book.title}
-				className={`book-card__image ${selected ? 'book-card__image--selected' : ''}`}
-				onClick={() => setSelected((currentSelected) => !currentSelected)}
+				className={`book-card__image ${isSelected ? 'book-card__image--selected' : ''}`}
+				onClick={() => onSelect(isSelected ? null : book.asin)}
 			/>
-			{selected && <CommentArea bookId={book.asin} />}
 		</article>
 	)
 }
