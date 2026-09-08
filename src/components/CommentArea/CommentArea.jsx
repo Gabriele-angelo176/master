@@ -3,7 +3,8 @@ import AddComment from './AddComment'
 import CommentList from './CommentList'
 import './CommentArea.css'
 
-const COMMENTS_API_URL = 'https://striveschool-api.herokuapp.com/api/comments/'
+const COMMENTS_API_URL = 'https://striveschool-api.herokuapp.com/api/comments'
+const BOOK_COMMENTS_API_URL = 'https://striveschool-api.herokuapp.com/api/books'
 const COMMENTS_AUTH_TOKEN = import.meta.env.VITE_COMMENTS_AUTH_TOKEN
 
 const getRequestOptions = (options = {}) => ({
@@ -19,6 +20,10 @@ class CommentArea extends Component {
     comments: [],
     isLoading: false,
     error: '',
+  }
+
+  componentDidMount() {
+    this.loadComments()
   }
 
   componentDidUpdate(prevProps) {
@@ -37,7 +42,7 @@ class CommentArea extends Component {
 
     this.setState({ isLoading: true, error: '' })
     try {
-      const response = await fetch(`${COMMENTS_API_URL}${selected}`, getRequestOptions())
+      const response = await fetch(`${BOOK_COMMENTS_API_URL}/${selected}/comments/`, getRequestOptions())
       if (!response.ok) throw new Error('Impossibile caricare le recensioni.')
       this.setState({ comments: await response.json() })
     } catch (requestError) {
@@ -60,13 +65,13 @@ class CommentArea extends Component {
 
   addComment = (comment, rate, elementId) => this.sendRequest(
     COMMENTS_API_URL,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ comment, rate, elementId }) },
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ comment, rate: String(rate), elementId: String(elementId) }) },
     'Impossibile pubblicare la recensione.'
   )
 
   updateComment = (commentId, comment, rate) => this.sendRequest(
     `${COMMENTS_API_URL}${commentId}`,
-    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ comment, rate, elementId: this.props.selected }) },
+    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ comment, rate: String(rate), elementId: String(this.props.selected) }) },
     'Impossibile modificare la recensione.'
   )
 
