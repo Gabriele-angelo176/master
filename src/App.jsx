@@ -7,6 +7,7 @@ import AllTheBooks from './components/AllTheBooks/AllTheBooks'
 import BookDetails from './components/BookDetails/BookDetails'
 import NotFound from './components/NotFound/NotFound'
 import { ThemeProvider } from './context/ThemeContext'
+import Welcome from './components/Welcome/Welcome'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -15,6 +16,7 @@ function App() {
     <BrowserRouter>
       <ThemeProvider>
         <Navbar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+        <Welcome />
         <Routes>
           <Route path="/" element={<AllTheBooks searchTerm={searchTerm} />} />
           <Route path="/books/:asin" element={<BookDetails />} />

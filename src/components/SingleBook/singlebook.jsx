@@ -1,12 +1,12 @@
 import '../AllTheBooks/AllTheBooks.css'
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const SingleBook = ({ book, selected, onSelect }) => {
 	const isSelected = selected === book.asin
 
 	return (
-		<article className="book-card">
+		<Card className="book-card">
 			<img
 				src={book.img}
 				alt={book.title}
@@ -16,7 +16,7 @@ const SingleBook = ({ book, selected, onSelect }) => {
 			<Button as={Link} className="book-card__details-link" to={`/books/${book.asin}`}>
 				View details
 			</Button>
-		</article>
+		</Card>
 	)
 }
 

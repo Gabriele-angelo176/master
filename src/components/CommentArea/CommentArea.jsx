@@ -70,7 +70,7 @@ class CommentArea extends Component {
   )
 
   updateComment = (commentId, comment, rate) => this.sendRequest(
-    `${COMMENTS_API_URL}${commentId}`,
+    `${COMMENTS_API_URL}/${commentId}`,
     { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ comment, rate: String(rate), elementId: String(this.props.selected) }) },
     'Impossibile modificare la recensione.'
   )
@@ -78,7 +78,7 @@ class CommentArea extends Component {
   deleteComment = async (commentId) => {
     this.setState({ error: '' })
     try {
-      const response = await fetch(`${COMMENTS_API_URL}${commentId}`, getRequestOptions({ method: 'DELETE' }))
+      const response = await fetch(`${COMMENTS_API_URL}/${commentId}`, getRequestOptions({ method: 'DELETE' }))
       if (!response.ok) throw new Error('Impossibile eliminare la recensione.')
       this.setState((currentState) => ({
         comments: currentState.comments.filter((item) => item._id !== commentId),
