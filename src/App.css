@@ -1,0 +1,142 @@
+.task-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 3.25rem 0 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #0b1120;
+}
+
+.task-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(125deg, rgba(23, 34, 60, 0.96) 0%, rgba(12, 18, 34, 0.96) 55%, rgba(13, 16, 28, 0.96) 100%);
+}
+
+.task-page::after {
+  content: '';
+  position: absolute;
+  right: -260px;
+  top: 32px;
+  width: 780px;
+  height: calc(100% - 64px);
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(196, 90, 255, 0.25) 30%,
+    rgba(196, 90, 255, 0.35) 48%,
+    rgba(255, 255, 255, 0) 48%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-28deg);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.content-block,
+.warning-section {
+  position: relative;
+  z-index: 1;
+}
+
+.page-header {
+  padding-left: clamp(1.6rem, 4vw, 5rem);
+  margin-bottom: 2.2rem;
+}
+
+.page-header h1,
+.warning-section h2 {
+  margin: 0;
+  color: #1cd8ff;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-shadow: 0 0 18px rgba(28, 216, 255, 0.45);
+}
+
+.task-list,
+.warning-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 clamp(1.7rem, 4vw, 5rem);
+  max-width: 90%;
+}
+
+.task-list li,
+.warning-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  color: #f6f7fb;
+  font-size: clamp(1.1rem, 1.8vw, 2rem);
+  line-height: 1.5;
+}
+
+.task-list li {
+  margin-bottom: 1.5rem;
+}
+
+.warning-section {
+  margin-top: 2rem;
+  padding-left: clamp(1.6rem, 4vw, 5rem);
+}
+
+.warning-section h2 {
+  font-size: clamp(2.2rem, 3vw, 3.3rem);
+  margin-bottom: 1.5rem;
+}
+
+.warning-list li {
+  margin-bottom: 1.35rem;
+}
+
+.bullet {
+  width: 0.8rem;
+  height: 0.8rem;
+  flex-shrink: 0;
+  margin-top: 0.65rem;
+  border-radius: 50%;
+  background: #f4f5f7;
+  box-shadow: 0 0 0 0.14rem rgba(255, 255, 255, 0.16);
+}
+
+.task-list p,
+.warning-list p {
+  margin: 0;
+  max-width: 90%;
+  color: rgba(243, 245, 248, 0.96);
+}
+
+.task-list .highlight {
+  font-weight: 700;
+  color: #f0f1f5;
+}
+
+@media (max-width: 768px) {
+  .task-page {
+    padding-top: 2.5rem;
+  }
+
+  .task-list,
+  .warning-list {
+    max-width: 100%;
+    padding-right: 1.2rem;
+  }
+
+  .task-list li,
+  .warning-list li {
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .bullet {
+    width: 0.65rem;
+    height: 0.65rem;
+    margin-top: 0.5rem;
+  }
+}
