@@ -14,3 +14,14 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Backend API
+
+Richiede Node.js 22.13 o successivo. Copia `.env.example` in `.env`, inserisci le credenziali e avvia il server con `npm run server`. Il database SQLite locale viene salvato in `data.sqlite`.
+
+- `POST /authors`: crea un autore con body JSON `{ "name": "Nome", "email": "nome@example.com" }`.
+- `PATCH /authors/:authorId/avatar`: carica il file multipart nel campo `avatar` e aggiorna l’URL Cloudinary.
+- `POST /blogPosts`: crea un post con body JSON `{ "title": "Titolo", "content": "Testo", "authorId": "1" }`.
+- `PATCH /blogPosts/:blogPostId/cover`: carica il file multipart nel campo `cover` e aggiorna l’URL Cloudinary.
+
+Le email sono facoltative e richiedono `SENDGRID_API_KEY` e `SENDGRID_FROM_EMAIL` con mittente verificato.

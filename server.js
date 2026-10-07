@@ -1,16 +1,68 @@
 import 'dotenv/config'
+import process from 'node:process'
+import { DatabaseSync } from 'node:sqlite'
 import express from 'express'
 import multer from 'multer'
 import { v2 as cloudinary } from 'cloudinary'
 import sgMail from '@sendgrid/mail'
+import { fileURLToPath } from 'node:url'
 
 export const app = express()
 const port = process.env.PORT || 3000
 
 const upload = multer({ storage: multer.memoryStorage() })
+const db = new DatabaseSync(fileURLToPath(new URL('./data.sqlite', import.meta.url)))
 
-const authors = []
-const blogPosts = []
+db.exec(`
+  PRAGMA foreign_keys = ON;
+
+  CREATE TABLE IF NOT EXISTS authors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    avatar TEXT
+  );
+
+  CREATE TABLE IF NOT EXISTS blog_posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    author_id INTEGER NOT NULL REFERENCES authors(id),
+    cover TEXT
+  );
+`)
+
+app.use(express.json())
+
+const findAuthor = (authorId) => {
+  const id = Number(authorId)
+
+  if (!Number.isSafeInteger(id) || id < 1) {
+    return undefined
+  }
+
+  const author = db.prepare('SELECT id, name, email, avatar FROM authors WHERE id = ?').get(id)
+
+  return author ? { ...author, id: String(author.id) } : undefined
+}
+
+const findBlogPost = (blogPostId) => {
+  const id = Number(blogPostId)
+
+  if (!Number.isSafeInteger(id) || id < 1) {
+    return undefined
+  }
+
+  const blogPost = db
+    .prepare(
+      'SELECT id, title, content, author_id AS authorId, cover FROM blog_posts WHERE id = ?',
+    )
+    .get(id)
+
+  return blogPost
+    ? { ...blogPost, id: String(blogPost.id), authorId: String(blogPost.authorId) }
+    : undefined
+}
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -59,20 +111,19 @@ app.get('/health', (_req, res) => {
 })
 
 app.post('/authors', async (req, res) => {
-  const { name, email } = req.body
+  const { name, email } = req.body ?? {}
 
   if (!name || !email) {
     return res.status(400).json({ message: 'name and email are required' })
   }
 
+  const result = db.prepare('INSERT INTO authors (name, email) VALUES (?, ?)').run(name, email)
   const author = {
-    id: String(authors.length + 1),
+    id: String(result.lastInsertRowid),
     name,
     email,
     avatar: null,
   }
-
-  authors.push(author)
 
   try {
     await sendEmail({
@@ -88,7 +139,7 @@ app.post('/authors', async (req, res) => {
 })
 
 app.patch('/authors/:authorId/avatar', upload.single('avatar'), async (req, res) => {
-  const author = authors.find((item) => item.id === req.params.authorId)
+  const author = findAuthor(req.params.authorId)
 
   if (!author) {
     return res.status(404).json({ message: 'Author not found' })
@@ -100,6 +151,7 @@ app.patch('/authors/:authorId/avatar', upload.single('avatar'), async (req, res)
 
   try {
     const avatarUrl = await uploadToCloudinary(req.file, 'authors')
+    db.prepare('UPDATE authors SET avatar = ? WHERE id = ?').run(avatarUrl, Number(author.id))
     author.avatar = avatarUrl
 
     return res.json({ message: 'Avatar updated', author })
@@ -110,27 +162,28 @@ app.patch('/authors/:authorId/avatar', upload.single('avatar'), async (req, res)
 })
 
 app.post('/blogPosts', async (req, res) => {
-  const { title, content, authorId } = req.body
+  const { title, content, authorId } = req.body ?? {}
 
   if (!title || !content || !authorId) {
     return res.status(400).json({ message: 'title, content and authorId are required' })
   }
 
-  const author = authors.find((item) => item.id === authorId)
+  const author = findAuthor(authorId)
 
   if (!author) {
     return res.status(404).json({ message: 'Author not found' })
   }
 
+  const result = db
+    .prepare('INSERT INTO blog_posts (title, content, author_id) VALUES (?, ?, ?)')
+    .run(title, content, Number(author.id))
   const blogPost = {
-    id: String(blogPosts.length + 1),
+    id: String(result.lastInsertRowid),
     title,
     content,
-    authorId,
+    authorId: author.id,
     cover: null,
   }
-
-  blogPosts.push(blogPost)
 
   try {
     await sendEmail({
@@ -146,7 +199,7 @@ app.post('/blogPosts', async (req, res) => {
 })
 
 app.patch('/blogPosts/:blogPostId/cover', upload.single('cover'), async (req, res) => {
-  const blogPost = blogPosts.find((item) => item.id === req.params.blogPostId)
+  const blogPost = findBlogPost(req.params.blogPostId)
 
   if (!blogPost) {
     return res.status(404).json({ message: 'Blog post not found' })
@@ -158,6 +211,7 @@ app.patch('/blogPosts/:blogPostId/cover', upload.single('cover'), async (req, re
 
   try {
     const coverUrl = await uploadToCloudinary(req.file, 'blog-posts')
+    db.prepare('UPDATE blog_posts SET cover = ? WHERE id = ?').run(coverUrl, Number(blogPost.id))
     blogPost.cover = coverUrl
 
     return res.json({ message: 'Cover updated', blogPost })
