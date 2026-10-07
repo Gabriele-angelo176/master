@@ -19,6 +19,11 @@ const authorSchema = new mongoose.Schema({
 
 const Author = mongoose.model('Author', authorSchema);
 
+const commentSchema = new mongoose.Schema({
+  text: { type: String, required: true, trim: true },
+  author: { type: String, default: '' }
+}, { timestamps: true });
+
 const blogPostSchema = new mongoose.Schema({
   category: { type: String, required: true },
   title: { type: String, required: true },
@@ -28,7 +33,8 @@ const blogPostSchema = new mongoose.Schema({
     unit: { type: String, required: true }
   },
   author: { type: String, required: true },
-  content: { type: String, required: true }
+  content: { type: String, required: true },
+  comments: { type: [commentSchema], default: [] }
 }, { timestamps: true });
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);
@@ -185,6 +191,140 @@ app.get('/blogPosts/:id', async (req, res) => {
     res.status(200).json(post);
   } catch (error) {
     res.status(500).json({ message: 'Errore nel recupero blog post', error: error.message });
+  }
+});
+
+app.get('/blogPosts/:id/comments', async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).json({ message: 'ID del blog post non valido' });
+  }
+
+  try {
+    const post = await BlogPost.findById(req.params.id).select('comments');
+
+    if (!post) {
+      return res.status(404).json({ message: 'Blog post non trovato' });
+    }
+
+    res.status(200).json(post.comments);
+  } catch (error) {
+    res.status(500).json({ message: 'Errore nel recupero commenti', error: error.message });
+  }
+});
+
+app.get('/blogPosts/:id/comments/:commentId', async (req, res) => {
+  const { id, commentId } = req.params;
+
+  if (!mongoose.isValidObjectId(id) || !mongoose.isValidObjectId(commentId)) {
+    return res.status(400).json({ message: 'ID non valido' });
+  }
+
+  try {
+    const post = await BlogPost.findById(id).select('comments');
+
+    if (!post) {
+      return res.status(404).json({ message: 'Blog post non trovato' });
+    }
+
+    const comment = post.comments.id(commentId);
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Commento non trovato' });
+    }
+
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(500).json({ message: 'Errore nel recupero commento', error: error.message });
+  }
+});
+
+app.post('/blogPosts/:id', async (req, res) => {
+  const { text, author } = req.body;
+
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).json({ message: 'ID del blog post non valido' });
+  }
+
+  if (typeof text !== 'string' || !text.trim()) {
+    return res.status(400).json({ message: 'Il campo text è obbligatorio' });
+  }
+
+  try {
+    const post = await BlogPost.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Blog post non trovato' });
+    }
+
+    post.comments.push({ text, author });
+    await post.save();
+
+    res.status(201).json(post.comments[post.comments.length - 1]);
+  } catch (error) {
+    res.status(500).json({ message: 'Errore nell\'aggiunta del commento', error: error.message });
+  }
+});
+
+app.put('/blogPosts/:id/comment/:commentId', async (req, res) => {
+  const { id, commentId } = req.params;
+  const { text, author } = req.body;
+
+  if (!mongoose.isValidObjectId(id) || !mongoose.isValidObjectId(commentId)) {
+    return res.status(400).json({ message: 'ID non valido' });
+  }
+
+  if (text !== undefined && (typeof text !== 'string' || !text.trim())) {
+    return res.status(400).json({ message: 'Il campo text non può essere vuoto' });
+  }
+
+  try {
+    const post = await BlogPost.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Blog post non trovato' });
+    }
+
+    const comment = post.comments.id(commentId);
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Commento non trovato' });
+    }
+
+    if (text !== undefined) comment.text = text;
+    if (author !== undefined) comment.author = author;
+
+    await post.save();
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(500).json({ message: 'Errore nella modifica del commento', error: error.message });
+  }
+});
+
+app.delete('/blogPosts/:id/comment/:commentId', async (req, res) => {
+  const { id, commentId } = req.params;
+
+  if (!mongoose.isValidObjectId(id) || !mongoose.isValidObjectId(commentId)) {
+    return res.status(400).json({ message: 'ID non valido' });
+  }
+
+  try {
+    const post = await BlogPost.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Blog post non trovato' });
+    }
+
+    const comment = post.comments.id(commentId);
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Commento non trovato' });
+    }
+
+    comment.deleteOne();
+    await post.save();
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ message: 'Errore nella cancellazione del commento', error: error.message });
   }
 });
 
