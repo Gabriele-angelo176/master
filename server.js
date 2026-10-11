@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/strive-blog';
+const JWT_SECRET = process.env.JWT_SECRET || 'strive-blog-secret-key';
 
 app.use(cors());
 app.use(express.json());
@@ -39,8 +42,128 @@ const blogPostSchema = new mongoose.Schema({
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  email: { type: String, required: true, unique: true, trim: true, lowercase: true },
+  password: { type: String, required: true }
+}, { timestamps: true });
+
+const User = mongoose.model('User', userSchema);
+
+function requireAuth(req, res, next) {
+  const isPublicRoute =
+    (req.path === '/login' || req.path === '/register') ||
+    (req.path === '/authors' && req.method === 'POST');
+
+  if (isPublicRoute) {
+    return next();
+  }
+
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Token mancante o non valido' });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  try {
+    const decodedToken = jwt.verify(token, JWT_SECRET);
+    req.user = decodedToken;
+    return next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Token non valido', error: error.message });
+  }
+}
+
+app.use(requireAuth);
+
+app.post('/register', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Nome, email e password sono obbligatori' });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({ message: 'La password deve contenere almeno 6 caratteri' });
+  }
+
+  try {
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const existingUser = await User.findOne({ email: normalizedEmail });
+
+    if (existingUser) {
+      return res.status(409).json({ message: 'Utente già registrato' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({
+      name: String(name).trim(),
+      email: normalizedEmail,
+      password: hashedPassword
+    });
+
+    return res.status(201).json({
+      message: 'Registrazione completata con successo',
+      user: {
+        id: newUser._id,
+        name: newUser.name,
+        email: newUser.email
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Errore durante la registrazione', error: error.message });
+  }
+});
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email e password sono obbligatori' });
+  }
+
+  try {
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const user = await User.findOne({ email: normalizedEmail });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Credenziali non valide' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Credenziali non valide' });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, name: user.name, email: user.email },
+      JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    return res.status(200).json({
+      message: 'Login effettuato con successo',
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Errore durante il login', error: error.message });
+  }
+});
+
+app.get('/me', (req, res) => {
+  res.status(200).json({ user: req.user });
+});
+
 app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Strive Blog API attiva' });
+  res.status(200).json({ message: 'Strive Blog API attiva', user: req.user });
 });
 
 app.get('/authors', async (req, res) => {
@@ -93,25 +216,41 @@ app.get('/authors/:id/blogPosts', async (req, res) => {
 });
 
 app.post('/authors', async (req, res) => {
-  const { nome, cognome, email, dataDiNascita, avatar } = req.body;
+  const { name, email, password } = req.body;
 
-  if (!nome || !cognome || !email) {
-    return res.status(400).json({ message: 'Nome, cognome ed email sono obbligatori' });
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Nome, email e password sono obbligatori' });
+  }
+
+  if (String(password).length < 6) {
+    return res.status(400).json({ message: 'La password deve avere almeno 6 caratteri' });
   }
 
   try {
-    const newAuthor = new Author({
-      nome,
-      cognome,
-      email,
-      dataDiNascita: dataDiNascita || '',
-      avatar: avatar || ''
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const existingUser = await User.findOne({ email: normalizedEmail });
+
+    if (existingUser) {
+      return res.status(409).json({ message: 'Utente già esistente' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({
+      name: String(name).trim(),
+      email: normalizedEmail,
+      password: hashedPassword
     });
 
-    const savedAuthor = await newAuthor.save();
-    res.status(201).json(savedAuthor);
+    return res.status(201).json({
+      message: 'Utente creato con successo',
+      user: {
+        id: newUser._id,
+        name: newUser.name,
+        email: newUser.email
+      }
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Errore nella creazione autore', error: error.message });
+    return res.status(500).json({ message: 'Errore nella creazione utente', error: error.message });
   }
 });
 

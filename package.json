@@ -1,17 +1,21 @@
 {
-  "name": "epicbackand",
+  "name": "strive-blog-api",
   "version": "1.0.0",
-  "description": "a backand for epicbooks app",
+  "description": "",
   "license": "ISC",
-  "author": "gabry",
+  "author": "gabriele",
   "type": "commonjs",
-  "main": "server.ls",
+  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
+    "dotenv": "^18.0.6",
     "express": "^5.2.1",
-    "mongoose": "^9.10.2"
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.11.1"
   }
 }
