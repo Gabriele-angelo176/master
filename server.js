@@ -1,16 +1,61 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/strive-blog';
+const MONGO_URI = process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/strive-blog';
 const JWT_SECRET = process.env.JWT_SECRET || 'strive-blog-secret-key';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 app.use(cors());
 app.use(express.json());
+app.use(passport.initialize());
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3001/auth/google/callback',
+  passReqToCallback: true,
+}, async (req, accessToken, refreshToken, profile, done) => {
+  try {
+    const email = profile.emails?.[0]?.value?.trim().toLowerCase();
+
+    if (!email) {
+      return done(new Error('Google profile non contiene email'), null);
+    }
+
+    let user = await User.findOne({ $or: [{ email }, { googleId: profile.id }] });
+
+    if (!user) {
+      const randomPassword = `google-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const hashedPassword = await bcrypt.hash(randomPassword, 10);
+
+      user = await User.create({
+        name: profile.displayName || 'Google User',
+        email,
+        password: hashedPassword,
+        googleId: profile.id,
+        provider: 'google'
+      });
+    } else {
+      user.googleId = user.googleId || profile.id;
+      user.provider = user.provider || 'google';
+      user.name = user.name || profile.displayName || 'Google User';
+      await user.save();
+    }
+
+    return done(null, user);
+  } catch (error) {
+    return done(error, null);
+  }
+}));
 
 const authorSchema = new mongoose.Schema({
   nome: { type: String, required: true },
@@ -45,7 +90,9 @@ const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   email: { type: String, required: true, unique: true, trim: true, lowercase: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  googleId: { type: String, unique: true, sparse: true },
+  provider: { type: String, default: 'local' }
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
@@ -53,7 +100,9 @@ const User = mongoose.model('User', userSchema);
 function requireAuth(req, res, next) {
   const isPublicRoute =
     (req.path === '/login' || req.path === '/register') ||
-    (req.path === '/authors' && req.method === 'POST');
+    (req.path === '/authors' && req.method === 'POST') ||
+    req.path === '/auth/google' ||
+    req.path === '/auth/google/callback';
 
   if (isPublicRoute) {
     return next();
@@ -77,6 +126,34 @@ function requireAuth(req, res, next) {
 }
 
 app.use(requireAuth);
+
+app.get('/auth/google', passport.authenticate('google', {
+  scope: ['profile', 'email'],
+  session: false
+}));
+
+app.get('/auth/google/callback', (req, res, next) => {
+  passport.authenticate('google', { session: false }, (error, user) => {
+    if (error || !user) {
+      const authErrorUrl = `${FRONTEND_URL}/?auth=error`;
+      return res.redirect(authErrorUrl);
+    }
+
+    const token = jwt.sign(
+      { id: user._id, name: user.name, email: user.email, provider: user.provider },
+      JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    const payload = encodeURIComponent(JSON.stringify({
+      id: user._id,
+      name: user.name,
+      email: user.email
+    }));
+
+    return res.redirect(`${FRONTEND_URL}/?token=${encodeURIComponent(token)}&user=${payload}`);
+  })(req, res, next);
+});
 
 app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;

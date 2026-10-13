@@ -32,6 +32,24 @@ function App() {
   }, [user])
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const tokenFromUrl = params.get('token')
+    const userFromUrl = params.get('user')
+
+    if (tokenFromUrl && userFromUrl) {
+      try {
+        const parsedUser = JSON.parse(decodeURIComponent(userFromUrl))
+        setToken(tokenFromUrl)
+        setUser(parsedUser)
+        setView('home')
+        window.history.replaceState({}, '', window.location.pathname)
+      } catch (error) {
+        setMessage('Errore durante il login con Google.')
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     if (!token) {
       setAuthors([])
       setView('login')
@@ -121,6 +139,11 @@ function App() {
     setMessage('Logout effettuato')
   }
 
+  const handleGoogleLogin = () => {
+    setMessage('Reindirizzamento a Google...')
+    window.location.href = `${API_URL}/auth/google`
+  }
+
   return (
     <div className="app-shell">
       <div className="glow glow-one" />
@@ -181,6 +204,10 @@ function App() {
 
                 <button type="submit" className="primary-button">
                   Accedi
+                </button>
+
+                <button type="button" className="secondary-button" onClick={handleGoogleLogin}>
+                  Accedi con Google
                 </button>
               </form>
             ) : (
